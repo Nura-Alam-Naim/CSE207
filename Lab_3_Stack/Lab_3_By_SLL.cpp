@@ -9,7 +9,7 @@ bool stack_created = 0;
 char str[70];
 struct node
 {
-    char data;
+    int data;
     struct node *next = null;
 } *top = null, *temp = null;
 
@@ -41,7 +41,7 @@ void printbin()
     cout << nl;
 }
 
-void push(char x)
+void push(int x)
 {
     if (total >= stackSize)
     {
@@ -60,12 +60,12 @@ void push(char x)
     }
 }
 
-char pop()
+int pop()
 {
-    if (total == 0)
-        return '\0';
+    if (!total)
+        return -1;
     total--;
-    char t = top->data;
+    int t = top->data;
     temp = top;
     top = top->next;
     delete temp;
@@ -95,11 +95,11 @@ int main()
         cout << "3. Pop stack" << nl;
         cout << "4. Check parentheses" << nl;
         cout << "5. Convert integer into binary" << nl;
-        char choice;
+        int choice;
         cout << "Enter choice: ";
         cin >> choice;
         cin.ignore();
-        if (choice == '1')
+        if (choice == 1)
             {
                 if(!stack_created)
                 {
@@ -108,24 +108,24 @@ int main()
                     stack_created = 1;
                 }
                 cout << "Enter value: ";
-                char c;
+                int c;
                 cin >> c;
                 cin.ignore();
                 push(c);
             }
-        else if (choice == '2')
+        else if (choice == 2)
             {
                 print();
             }
-        else if (choice == '3')
+        else if (choice == 3)
             {
-                char c = pop();
-                if (c == '\0')
+                int c = pop();
+                if (c == -1)
                     cout << "Stack is empty" << nl;
                 else
                     cout << c << nl;
             }
-        else if (choice == '4')
+        else if (choice == 4)
             {
                 clear();
                 cout << "Enter string: ";
@@ -136,10 +136,10 @@ int main()
                 for (int i = 0; i < stackSize; i++)
                 {
                     if (str[i] == '(')
-                        push(str[i]);
+                        push((int)str[i]);
                     else if (str[i] == ')')
                     {
-                        if (pop() == '\0')
+                        if (pop() == -1)
                         {
                             cout << "Closing parentheses not opened" << nl;
                             f = 0;
@@ -152,7 +152,7 @@ int main()
                 else if (total > 0)
                     cout << "Opening parentheses not closed" << nl;
             }
-        else if (choice == '5')
+        else if (choice == 5)
             {
                 clear();
                 int num;
@@ -161,7 +161,7 @@ int main()
                 stackSize = num;
                 while (num)
                 {
-                    push((num % 2 + '0'));
+                    push(num%2);
                     num /= 2;
                 }
                 printbin();

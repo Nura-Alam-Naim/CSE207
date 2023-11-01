@@ -7,50 +7,51 @@ typedef long long ll;
 ll len;
 ll top = -1;
 bool created = 0;
-char stk[5000], str[50];
+int stk[5000];
+char str[50];
 void clear()
 {
     for (int i = 0; i < top; i++)
-        stk[i] = '\0';
+        stk[i] = 0;
     len = 0;
     top = -1;
     created = 0;
 }
 void print()
 {
-    if (top = -1)
+    if (top == -1)
     {
         cout << "Stack is empty" << nl;
         return;
     }
     cout << nl << "Stack looks like: ";
-    for (int i = top; i >= -1; i--)
+    for (int i = top; i >= 0; i--)
         cout << stk[i] << " ";
     cout << nl;
 }
 void printbin()
 {
     cout << nl << "Binary number: ";
-    for (int i = top; i >= -1; i--)
+    for (int i = top; i >= 0; i--)
         cout << stk[i];
     cout << nl;
 }
-void push(char c)
+void push(int value)
 {
     if (top + 1 == len)
     {
-        cout << "Stack Overflow";
+        cout << "Stack Overflow" << nl;
         return;
     }
     top++;
-    stk[top] = c;
+    stk[top] = value;
 }
-char pop()
+int pop()
 {
     if (top == -1)
-        return '\0';
-    char c = stk[top];
-    stk[top] = '\0';
+        return 0;
+    int c = stk[top];
+    stk[top] = 0;
     top--;
     return c;
 }
@@ -78,7 +79,7 @@ int main()
         else if (choice == '2')
         {
             cout << "Enter value: ";
-            char c;
+            int c;
             cin >> c;
             cin.ignore();
             push(c);
@@ -89,8 +90,8 @@ int main()
         }
         else if (choice == '4')
         {
-            char c = pop();
-            if (c == '\0')
+            int c = pop();
+            if (!c)
                 cout << "Stack is empty" << nl;
             else
                 cout << c << nl;
@@ -106,10 +107,10 @@ int main()
             for (int i = 0; i < len; i++)
             {
                 if (str[i] == '(')
-                    push(str[i]);
+                    push((int)str[i]);
                 else if (str[i] == ')')
                 {
-                    if (pop() == '\0')
+                    if (!pop())
                     {
                         cout << "Closing parentheses not opened" << nl;
                         f = 0;
@@ -121,6 +122,7 @@ int main()
                 cout << "Parentheses are balanced" << nl;
             else if (top > -1)
                 cout << "Opening parentheses not closed" << nl;
+            clear();
         }
         else if (choice == '6')
         {
@@ -131,10 +133,11 @@ int main()
             len = num;
             while (num)
             {
-                push((num % 2 + '0'));
+                push(num % 2);
                 num /= 2;
             }
             printbin();
+            clear();
         }
         else
             break;
