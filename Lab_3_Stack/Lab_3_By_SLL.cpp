@@ -15,6 +15,11 @@ struct node
 
 void print()
 {
+    if(!total)
+    {
+        cout << "Stack is empty" << nl;
+        return;
+    }
     cout << nl << "Stack looks like: ";
     temp = top;
     while (temp != null)
@@ -95,72 +100,72 @@ int main()
         cin >> choice;
         cin.ignore();
         if (choice == '1')
-        {
-            if(!stack_created)
             {
-                cout << "Enter size of stack: ";
-                cin >> stackSize;
-                stack_created = 1;
-            }
-            cout << "Enter value: ";
-            char c;
-            cin >> c;
-            cin.ignore();
-            push(c);
-        }
-        else if (choice == '2')
-        {
-            print();
-        }
-        else if (choice == '3')
-        {
-            char c = pop();
-            if (c == '\0')
-                cout << "Stack is empty" << nl;
-            else
-                cout << c << nl;
-        }
-        else if (choice == '4')
-        {
-            clear();
-            cout << "Enter string: ";
-            cin >> str;
-            stackSize = strlen(str);
-            bool f = 1;
-            stack_created = 1;
-            for (int i = 0; i < stackSize; i++)
-            {
-                if (str[i] == '(')
-                    push(str[i]);
-                else if (str[i] == ')')
+                if(!stack_created)
                 {
-                    if (pop() == '\0')
+                    cout << "Enter size of stack: ";
+                    cin >> stackSize;
+                    stack_created = 1;
+                }
+                cout << "Enter value: ";
+                char c;
+                cin >> c;
+                cin.ignore();
+                push(c);
+            }
+        else if (choice == '2')
+            {
+                print();
+            }
+        else if (choice == '3')
+            {
+                char c = pop();
+                if (c == '\0')
+                    cout << "Stack is empty" << nl;
+                else
+                    cout << c << nl;
+            }
+        else if (choice == '4')
+            {
+                clear();
+                cout << "Enter string: ";
+                cin >> str;
+                stackSize = strlen(str);
+                bool f = 1;
+                stack_created = 1;
+                for (int i = 0; i < stackSize; i++)
+                {
+                    if (str[i] == '(')
+                        push(str[i]);
+                    else if (str[i] == ')')
                     {
-                        cout << "Closing parentheses not opened" << nl;
-                        f = 0;
-                        break;
+                        if (pop() == '\0')
+                        {
+                            cout << "Closing parentheses not opened" << nl;
+                            f = 0;
+                            break;
+                        }
                     }
                 }
+                if (total == 0 && f)
+                    cout << "Parentheses are balanced" << nl;
+                else if (total > 0)
+                    cout << "Opening parentheses not closed" << nl;
             }
-            if (total == 0 && f)
-                cout << "Parentheses are balanced" << nl;
-            else if (total > 0)
-                cout << "Opening parentheses not closed" << nl;
-        }
         else if (choice == '5')
-        {
-            clear();
-            int num;
-            cout << "Enter number: ";
-            cin >> num;
-            stackSize = num;
-            while (num)
             {
-                push((num % 2 + '0'));
-                num /= 2;
+                clear();
+                int num;
+                cout << "Enter number: ";
+                cin >> num;
+                stackSize = num;
+                while (num)
+                {
+                    push((num % 2 + '0'));
+                    num /= 2;
+                }
+                printbin();
             }
-            printbin();
-        }
         else
             break;
     }
