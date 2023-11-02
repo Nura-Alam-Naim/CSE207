@@ -5,6 +5,7 @@ typedef long long ll;
 #define nl "\n"
 #define null NULL
 ll *arr = null;
+ll *cpy = null;
 ll len = 0;
 ll pos = 0;
 ll f = -1, r = -1, cnt=0;
@@ -14,6 +15,16 @@ void clear()
     pos = 0;
     f = -1;
     r = -1;
+    delete[] arr;
+}
+void print(ll *main)
+{
+    
+    cout << nl;
+    //cout << *main << " ";
+    for (ll i = 0; i < cnt;i++)
+        cout << *(main+i) << " ";
+    cout << nl;
 }
 void enqueue(ll n)
 {
@@ -26,15 +37,21 @@ void enqueue(ll n)
     {
         f++;
         r++;
+        // cout << r << " ";
+        // arr[r] = n;
+        *(arr + r)=n;
+        cnt++;
     }
     else
+    {
         r = (r + 1) % len;
-    arr[r] = n;
-    cnt++;
+        // arr[r] = n;
+        *(arr + r)=n;
+    }
 }
 ll dequeue()
 {
-    ll rtn = -1;
+    ll rtn = 0;
     if (f == -1 && r == -1)
     {
         cout << "Queue is empty" << nl;
@@ -84,44 +101,36 @@ int main()
             ll val;
             cin >> val;
             enqueue(val);
+            print(arr);
         }
         else if (c == 3)
         {
             ll val = dequeue();
-            if (!val)
-                cout << "Queue is empty" << nl;
-            else
+            if (val)
+                //cout << "Queue is empty" << nl;
+            // else
                 cout << val << nl;
         }
         else if (c == 4)
         {
-            print(head);
+            print(arr);
         }
         else if (c == 5)
         {
+            ll ar[cnt];
+            cpy = &ar[0];
             ll crnt = 0;
-            while (crnt != pos)
+            while (crnt < cnt)
             {
-                ll val = dequeue();
-                enqueue(val);
-                temp1 = (struct node *)malloc(sizeof(struct node));
-                temp1->data = val;
-                if (cpy_head == null)
-                {
-                    cpy_head = temp1;
-                    cpy_tail = temp1;
-                }
-                else
-                {
-                    cpy_tail->next = temp1;
-                    cpy_tail = temp1;
-                }
+                ll c = dequeue();
+                enqueue(c);
+                ar[crnt] = c;
                 crnt++;
             }
             cout << "Real Queue: ";
-            print(head);
+            print(arr);
             cout << "Copied Queue: ";
-            print(cpy_head);
+            print(cpy);
         }
     }
 }
