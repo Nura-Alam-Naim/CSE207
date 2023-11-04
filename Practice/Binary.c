@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 struct node
 {
     int value;
@@ -12,7 +13,8 @@ void print()
     temp = top;
     while (temp != NULL)
     {
-        printf(temp->value);
+        int number = temp->value;
+        printf("%d",number );
         temp = temp->next;
     }
     printf("\n");
@@ -34,7 +36,7 @@ int main()
 {
     int n;
     printf("Enter number: ");
-    secanf("%d", &n);
+    scanf("%d", &n);
     while (n > 0)
     {
         int m = n % 2;
