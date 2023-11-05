@@ -9,6 +9,7 @@ ll *cpy = null;
 ll len = 0;
 ll pos = 0;
 ll f = -1, r = -1, cnt=0;
+bool is_created = 0;
 void clear()
 {
     len = 0;
@@ -23,7 +24,7 @@ void print(ll *main)
     cout << nl;
     //cout << *main << " ";
     for (ll i = 0; i < cnt;i++)
-        cout << *(main+i) << " ";
+        cout << main[i] << " ";
     cout << nl;
 }
 void enqueue(ll n)
@@ -38,15 +39,15 @@ void enqueue(ll n)
         f++;
         r++;
         // cout << r << " ";
-        // arr[r] = n;
-        *(arr + r)=n;
+        arr[r] = n;
+        // *(arr + r)=n;
         cnt++;
     }
     else
     {
         r = (r + 1) % len;
-        // arr[r] = n;
-        *(arr + r)=n;
+        arr[r] = n;
+        // *(arr + r)=n;
     }
 }
 ll dequeue()
