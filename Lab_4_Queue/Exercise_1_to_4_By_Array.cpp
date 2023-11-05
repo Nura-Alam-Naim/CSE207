@@ -64,14 +64,15 @@ ll dequeue()
         f = -1;
         r = -1;
         cnt = 0;
+        return rtn;
     }
     else
     {
         rtn = arr[f];
         f = (f + 1) % len;
+        cnt--;
+        return rtn;
     }
-    cnt--;
-    return rtn;
 }
 int main()
 {
