@@ -12,6 +12,12 @@ ll power(ll num,ll pow)
         return power(num*num, pow / 2);
     return num * power(num, pow - 1);
 }
+// ll power(ll n,ll p)
+// {
+//     if(p<=1)
+//         return 1;
+//     return n * power(p, n - 1);
+// }
 int main()
 {
     ll num, pow;
