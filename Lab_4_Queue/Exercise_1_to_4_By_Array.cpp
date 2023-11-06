@@ -9,7 +9,6 @@ ll *cpy = null;
 ll len = 0;
 ll pos = 0;
 ll f = -1, r = -1, cnt=0;
-bool is_created = 0;
 void clear()
 {
     len = 0;
@@ -17,39 +16,38 @@ void clear()
     f = -1;
     r = -1;
     delete[] arr;
+    delete[] cpy;
 }
 void print(ll *main)
 {
     
     cout << nl;
-    //cout << *main << " ";
     for (ll i = 0; i < cnt;i++)
         cout << main[i] << " ";
     cout << nl;
 }
 void enqueue(ll n)
 {
-    if(cnt==len)
+    if (cnt == len)
     {
-        cout << "Queue if full" << nl;
+        cout << "Queue is full" << nl;
         return;
     }
-    else if(f==-1 && r==-1)
+    else if (f == -1 && r == -1)
     {
-        f++;
-        r++;
-        // cout << r << " ";
+        f = 0;
+        r = 0;
         arr[r] = n;
-        // *(arr + r)=n;
         cnt++;
     }
     else
     {
         r = (r + 1) % len;
         arr[r] = n;
-        // *(arr + r)=n;
+        cnt++;
     }
 }
+
 ll dequeue()
 {
     ll rtn = 0;
@@ -93,8 +91,7 @@ int main()
             clear();
             cout << "Enter size of queue: ";
             cin >> len;
-            ll a[len];
-            arr = &a[0];
+            arr = (ll *)malloc(len*sizeof(ll));
             cout << nl;
         }
         else if (c == 2)
@@ -109,8 +106,6 @@ int main()
         {
             ll val = dequeue();
             if (val)
-                //cout << "Queue is empty" << nl;
-            // else
                 cout << val << nl;
         }
         else if (c == 4)
@@ -119,14 +114,13 @@ int main()
         }
         else if (c == 5)
         {
-            ll ar[cnt];
-            cpy = &ar[0];
+            cpy =(ll *)malloc(cnt*sizeof(ll));
             ll crnt = 0;
             while (crnt < cnt)
             {
                 ll c = dequeue();
                 enqueue(c);
-                ar[crnt] = c;
+                cpy[crnt] = c;
                 crnt++;
             }
             cout << "Real Queue: ";
