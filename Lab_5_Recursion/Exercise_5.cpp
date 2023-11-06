@@ -22,9 +22,9 @@ void print()
 }
 struct node* reverse(struct node *node)
 {
-    if (node == null)
+    if(node==null)
         return null;
-    if (node->next == null)
+    if(node->next==null)
     {
         head = node;
         return node;
