@@ -69,7 +69,7 @@ void display() {
         cout << temp->data << " -> ";
         temp = temp->next;
     }
-    cout << endl;
+    cout << nl;
 }
 
 int main() {
