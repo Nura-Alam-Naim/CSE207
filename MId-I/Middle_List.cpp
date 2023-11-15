@@ -54,6 +54,7 @@ void middle_List()
         temp = temp->next;
     }
 }
+
 void display()
 {
     temp = head;
@@ -74,4 +75,6 @@ int main()
     push(6);
     display();
     middle_List();
+    
+    
 }

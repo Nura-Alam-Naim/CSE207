@@ -74,7 +74,7 @@ int main()
     push(4);
     push(2);
     push(5);
-    push(2);
+    push(6);
     display();
     delete_Duplicate(2);
     display();
