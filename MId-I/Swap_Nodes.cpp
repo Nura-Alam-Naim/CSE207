@@ -80,7 +80,7 @@ int main() {
     push(20);
     push(14);
     display();
-    swap(12, 20);
+    swap(10, 14);
     display();
     return 0;
 }

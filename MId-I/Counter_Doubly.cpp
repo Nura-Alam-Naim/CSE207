@@ -33,6 +33,7 @@ void anti_clock(int n)
     {
         struct node *temp = head;
         head = head->next;
+        head->previous = null;
         tail->next = temp;
         temp->previous = tail;
         tail = temp;
