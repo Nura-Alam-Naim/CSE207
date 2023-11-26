@@ -109,26 +109,44 @@ void place_at()
     }
     else
     {
-        temp = head;
-        ll len = 0;
-        while (temp != NULL)
+        ll cnt = 2,f=0;
+        temp=head->next;
+        temp1 = head;
+        while(cnt<=pos && temp1!=null)
         {
-            temp = temp->next;
-            len++;
-        }
-        if (pos > len)
-        {
-            cout << "No such index exists" << nl;
-            return;
-        }
-        temp = head;
-        for (int i = 0; i < pos - 1; i++)
-        {
-            temp1 = temp;
+            if(cnt==pos)
+            {
+                temp1->next = new_node;
+                new_node->next=temp;
+                f = 1;
+                break;
+            }
+            cnt++;
+            temp1=temp;
             temp = temp->next;
         }
-        temp1->next = new_node;
-        new_node->next = temp;
+        if(!f)
+            cout << "No such index exixts" << nl;
+        // temp = head;
+        // ll len = 0;
+        // while (temp != NULL)
+        // {
+        //     temp = temp->next;
+        //     len++;
+        // }
+        // if (pos > len)
+        // {
+        //     cout << "No such index exists" << nl;
+        //     return;
+        // }
+        // temp = head;
+        // for (int i = 0; i < pos - 1; i++)
+        // {
+        //     temp1 = temp;
+        //     temp = temp->next;
+        // }
+        // temp1->next = new_node;
+        // new_node->next = temp;
     }
     print();
 }
@@ -167,38 +185,60 @@ void delete_pos()
         head = temp->next;
         free(temp);
     }
-    else if (pos == 2)
+    else
     {
+        temp1 = head;
         temp = head->next;
-        head->next = temp->next;
-        free(temp);
-    }
-    else if (pos > 2)
-    {
-        ll len = 0;
-        while (temp != NULL)
+        int cnt = 2, f = 0;
+        while (cnt <= pos && temp != null)
         {
-            temp = temp->next;
-            len++;
-        }
-        if (pos > len )
-        {
-            cout << "No such index exists" << nl;
-            return;
-        }
-        temp = head;
-        for (ll i = 1; i < pos - 1; i++)
-        {
+            if (cnt == pos)
+            {
+                f = 1;
+                temp1->next = temp->next;
+                free(temp);
+                break;
+            }
+            cnt++;
             temp1 = temp;
             temp = temp->next;
         }
-        temp1->next = temp->next;
-        free(temp);
+        if(!f)
+            cout << "No such index" << nl;
     }
-    else
-    {
-        cout << "No such index exists" << nl;
-    }
+    
+    // else if (pos == 2)
+    // {
+    //     temp = head->next;
+    //     head->next = temp->next;
+    //     free(temp);
+    // }
+    // else if (pos > 2)
+    // {
+    //     ll len = 0;
+    //     while (temp != NULL)
+    //     {
+    //         temp = temp->next;
+    //         len++;
+    //     }
+    //     if (pos > len )
+    //     {
+    //         cout << "No such index exists" << nl;
+    //         return;
+    //     }
+    //     temp = head;
+    //     for (ll i = 1; i < pos - 1; i++)
+    //     {
+    //         temp1 = temp;
+    //         temp = temp->next;
+    //     }
+    //     temp1->next = temp->next;
+    //     free(temp);
+    // }
+    // else
+    // {
+    //     cout << "No such index exists" << nl;
+    // }
     print();
 }
 void sort()

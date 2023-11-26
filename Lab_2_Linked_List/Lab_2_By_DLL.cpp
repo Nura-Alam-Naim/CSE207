@@ -204,7 +204,7 @@ void reverse()
     }
     temp2 = head;
     head = tail;
-    tail = temp;
+    tail = temp2;
     print();
 }
 void distinct()

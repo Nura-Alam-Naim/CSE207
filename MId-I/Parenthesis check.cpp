@@ -73,6 +73,6 @@ bool check(string str)
 int main()
 {
     //cout << check("[()]{}{[()()]()}") << nl;
-    cout << check("(([()])))");
+    cout << check("((([()])))");
 }
 

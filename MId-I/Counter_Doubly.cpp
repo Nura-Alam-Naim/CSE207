@@ -8,7 +8,7 @@ struct node{
     int data;
     struct node *next, *previous;
 };
-node *head=null, *tail=null;
+node *head=null, *tail=null,*temp,*temp1;
 void push(int x)
 {
     node *temp = (struct node *)malloc(sizeof(struct node));
@@ -29,16 +29,31 @@ void push(int x)
 }
 void anti_clock(int n)
 {
-    for (int i = 0; i < n;i++)
+    // for (int i = 0; i < n;i++)
+    // {
+    //     struct node *temp = head;
+    //     head = head->next;
+    //     head->previous = null;
+    //     tail->next = temp;
+    //     temp->previous = tail;
+    //     tail = temp;
+    //     tail->next = null;
+    // }
+    // n++;
+    temp=head;
+    temp1 = null;
+    while(n--)
     {
-        struct node *temp = head;
-        head = head->next;
-        head->previous = null;
-        tail->next = temp;
-        temp->previous = tail;
-        tail = temp;
-        tail->next = null;
+        temp1 = temp;
+        temp = temp->next;
     }
+    temp1->next = null;
+    temp->previous = null;
+
+    tail->next = head;
+    head->previous = tail;
+    tail = temp1;
+    head = temp;
 }
 void display()
 {
@@ -59,6 +74,6 @@ int main()
     push(20);
     push(14);
     display();
-    anti_clock(2);
+    anti_clock(4);
     display();
 }

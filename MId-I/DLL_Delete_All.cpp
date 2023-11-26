@@ -56,7 +56,7 @@ void delete_Duplicate(int number)
         if(temp->data==number)
         {
             temp3 = temp;
-            temp->previous = temp1;
+            temp->next->previous = temp1;
             temp1->next = temp->next;
             free(temp3);
             
