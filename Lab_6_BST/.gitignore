@@ -1,0 +1,5 @@
+/.vscode
+/output
+*.bin
+*.exe
+/.cph
