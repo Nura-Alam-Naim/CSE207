@@ -1,0 +1,5 @@
+/.vscode
+/output
+*.bin
+*.exe
+*.DS_Store
