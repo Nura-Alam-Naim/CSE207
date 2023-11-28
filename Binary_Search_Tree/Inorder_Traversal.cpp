@@ -20,7 +20,7 @@ struct node* insert(struct node *root, ll val)
         root->left = insert(root->left, val);
     else
         root->right = insert(root->right, val);
-    return root;
+    return root; 
 }
 void inorder(struct node *root)
 {
