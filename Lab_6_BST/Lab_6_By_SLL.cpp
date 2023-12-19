@@ -60,61 +60,55 @@ struct node *searchMax(struct node *root)
 {
     if (!root->right)
     {
-        cout << root->value << nl;
+        // cout << root->value << nl;
         return root;
     }
-    else
-        searchMax(root->right);
+    
+    return searchMax(root->right);
 }
 struct node *searchMin(struct node *root)
 {
     if (!root->left)
     {
-        cout << root->value << nl;
+        // cout << root->value << nl;
         return root;
     }
-    else
-        searchMin(root->left);
+    return searchMin(root->left);
 }
 struct node *Delete(struct node *root, ll val)
 {
     if (!root)
         return root;
+
     if (root->value > val)
         root->left = Delete(root->left, val);
-    if (root->value < val)
+    else if (root->value < val)
         root->right = Delete(root->right, val);
     else
     {
-        if (!root->left && !root->right)
+        if (!root->left)
         {
+            temp = root->right;
             free(root);
-            root = null;
-            return root;
+            return temp;
         }
         else if (!root->right)
         {
-            temp = root;
-            root = root->left;
-            free(temp);
-            return root;
-        }
-        else if (!root->left)
-        {
-            temp = root;
-            root = root->right;
-            free(temp);
-            return root;
+            temp = root->left;
+            free(root);
+            return temp;
         }
         else
         {
             temp = searchMin(root->right);
             root->value = temp->value;
             root->right = Delete(root->right, temp->value);
-            return root;
         }
+        
     }
+    return root;
 }
+
 int main()
 {
     ll choice, num;
@@ -163,11 +157,13 @@ int main()
         }
         else if (choice == 6)
         {
-            searchMin(root);
+            struct node *temp1=searchMin(root);
+            cout << temp1->value << nl;
         }
         else if (choice == 7)
         {
-            searchMax(root);
+            struct node *temp1 = searchMax(root);
+            cout << temp1->value << nl;
         }
         else if (choice == 8)
         {
