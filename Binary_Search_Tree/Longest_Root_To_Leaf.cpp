@@ -66,7 +66,7 @@ int main()
     insert(root, 30);
     insert(root, 4);
      int arr[7]={0};
-    cout << level(root, 0);
+    cout << level(root);
     // longest(root, arr, 0);
     // ll i = 0;
     // while(arr[i])
