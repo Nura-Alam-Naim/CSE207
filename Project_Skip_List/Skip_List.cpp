@@ -19,6 +19,7 @@ struct node* search(int val)
     struct node *temp = head;
     while(temp->down!=null)
     {
+        temp = temp->down;
         while(val>=temp->down->data)
         {
             temp = temp->next;
