@@ -1,4 +1,3 @@
-//|ADMIRAL_AUDITORE|//
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -108,15 +107,19 @@ void print()
 {
     struct node *maxLvl = head;
     int level = height;
-
+    cout << nl;
     while (maxLvl != NULL)
     {
-        cout << "Level: " << level << nl;
+        cout << "\t#Level: " << level << nl;
         struct node *temp = maxLvl;
         while (temp != NULL)
         {
-            if(temp->data!=INT_MAX || temp->data!=INT_MIN)
-                cout << temp->data << ' ';
+            if(temp->data== -2147483648)
+                cout << "HEAD" << ' ';
+            else if (temp->data == 2147483647)
+                cout << "Tail" << ' ';
+            else
+                cout << temp->data;
             if (temp->next != NULL)
                 cout << ": ";
             temp = temp->next;
@@ -159,11 +162,10 @@ int main()
     setVal(head, tail);
     while(true)
     {
-        cout << nl;
         cout << 1 << ". Insert data: " << nl;
         cout << 2 << ". Delete data: " << nl;
         cout << 3 << ". Search data: " << nl;
-        cout << 4 << ". Exit: ";
+        cout << 4 << ". Exit: " << nl;
         cout << "#Enter Choice: ";
         int n, c;
         cin >> n;
