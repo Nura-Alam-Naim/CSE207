@@ -66,19 +66,18 @@ void setUpDown(struct node *pos, struct node *newNode, struct node *BeforeNew, i
         newNode->down = BeforeNew->next;
         BeforeNew->next->up = newNode;
     }
-    if (pos)
-        if (pos->next->data == val)
+    if (pos && pos->next->data == val)
             newNode->up = pos->next;
 }
 struct node *insertAbove(struct node *pos, struct node *q, int val)
 {
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = val;
-    struct node *BeforeNew = pos->down->down;
     newNode->next = q->next;
     newNode->previous = q;
     q->next->previous = newNode;
     q->next = newNode;
+    struct node *BeforeNew = pos->down->down;
     setUpDown(pos, newNode, BeforeNew, val);
     return newNode;
 }
@@ -87,9 +86,7 @@ void insert(int val)
     struct node *pos = search(val);
     struct node *q;
     if (pos->data == val)
-    {
         return;
-    }
     int level = -1;
     do
     {
@@ -101,9 +98,7 @@ void insert(int val)
         }
         q = pos;
         while (pos->up == null)
-        {
             pos = pos->previous;
-        }
         pos = pos->up;
         q = insertAbove(pos, q, val);
     } while (Random());
@@ -138,7 +133,7 @@ struct node *removeLevel(struct node *rmv)
     struct node *temp1 = rmv->previous;
     temp->previous = temp1;
     temp1->next = temp;
-    delete rmv;
+    free(rmv);
     rmv = null;
     return rmv;
 }
