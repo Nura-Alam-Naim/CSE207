@@ -11,15 +11,20 @@ struct node
     struct node *previous = null;
     struct node *up = null;
     struct node *down = null;
-} *head, *tail;
-
+};
+struct node *head = (struct node *)malloc(sizeof(struct node));
+struct node *tail = (struct node *)malloc(sizeof(struct node));
+void setVal(struct node *head, struct node *tail)
+{
+    head->data = INT_MIN;
+    tail->data = INT_MAX;
+    head->next = tail;
+    tail->previous = head;
+}
 int height = 0;
-
 int Random()
 {
-    int N = 20;
-    int s = (int)rand();
-    return (s % N) % 2;
+    return ((int)rand() % 20) % 2;
 }
 struct node *search(int val)
 {
@@ -38,13 +43,7 @@ void addlevel()
 {
     struct node *newHead = (struct node *)malloc(sizeof(struct node));
     struct node *newTail = (struct node *)malloc(sizeof(struct node));
-
-    newHead->data = INT_MIN;
-    newTail->data = INT_MAX;
-
-    newHead->next = newTail;
-    newTail->previous = newHead;
-
+    setVal(newHead, newTail);
     newHead->down = head;
     newTail->down = tail;
 
@@ -54,104 +53,83 @@ void addlevel()
     head = newHead;
     tail = newTail;
 }
-void setBeforeAfter(struct node *q, struct node *newNode)
-{
-    newNode->next = q->next;
-    newNode->previous = q;
-    q->next->previous = newNode;
-    q->next = newNode;
-}
-void setUpDown(struct node *position, struct node *newNode, struct node *BeforeNew, int val)
+void setUpDown(struct node *pos, struct node *newNode, struct node *BeforeNew, int val)
 {
     if (BeforeNew)
     {
         while (true)
-        {
             if (BeforeNew->next->data != val)
-            {
                 BeforeNew = BeforeNew->next;
-            }
             else
-            {
                 break;
-            }
-        }
+                
         newNode->down = BeforeNew->next;
         BeforeNew->next->up = newNode;
     }
-    if (position)
-    {
-        if (position->next->data == val)
-        {
-            newNode->up = position->next;
-        }
-    }
+    if (pos)
+        if (pos->next->data == val)
+            newNode->up = pos->next;
 }
-struct node *insertAbove(struct node *position, struct node *q, int val)
+struct node *insertAbove(struct node *pos, struct node *q, int val)
 {
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
     newNode->data = val;
-    struct node *BeforeNew = position->down->down;
-    setBeforeAfter(q, newNode);
-    setUpDown(position, newNode, BeforeNew, val);
+    struct node *BeforeNew = pos->down->down;
+    newNode->next = q->next;
+    newNode->previous = q;
+    q->next->previous = newNode;
+    q->next = newNode;
+    setUpDown(pos, newNode, BeforeNew, val);
     return newNode;
 }
 void insert(int val)
 {
-    struct node *position = search(val);
+    struct node *pos = search(val);
     struct node *q;
-    if (position->data == val)
+    if (pos->data == val)
     {
         return;
     }
     int level = -1;
-    int heads = -1;
     do
     {
-        heads++;
         level++;
         if (level >= height)
         {
             height++;
             addlevel();
         }
-        q = position;
-        while (position->up == null)
+        q = pos;
+        while (pos->up == null)
         {
-            position = position->previous;
+            pos = pos->previous;
         }
-        position = position->up;
-        q = insertAbove(position, q, val);
+        pos = pos->up;
+        q = insertAbove(pos, q, val);
     } while (Random());
 }
 
 void print()
 {
-    struct node *highestLevel = head;
+    struct node *maxLvl = head;
     int level = height;
 
-    while (highestLevel != NULL)
+    while (maxLvl != NULL)
     {
         cout << "Level: " << level << nl;
-
-        struct node *current = highestLevel;
-        while (current != NULL)
+        struct node *temp = maxLvl;
+        while (temp != NULL)
         {
-            cout << current->data << ' ';
-
-            if (current->next != NULL)
-            {
+            cout << temp->data << ' ';
+            if (temp->next != NULL)
                 cout << ": ";
-            }
-
-            current = current->next;
+            temp = temp->next;
         }
-        highestLevel = highestLevel->down;
-        current = highestLevel;
+        maxLvl = maxLvl->down;
+        temp = maxLvl;
         level--;
         cout << nl;
     }
-
     cout << nl;
 }
 struct node *removeLevel(struct node *rmv)
@@ -160,20 +138,14 @@ struct node *removeLevel(struct node *rmv)
     struct node *temp1 = rmv->previous;
     temp->previous = temp1;
     temp1->next = temp;
-    free(rmv);
-    rmv = nullptr;
-    
+    delete rmv;
+    rmv = null;
     return rmv;
 }
-struct node *remove(int val)
+void remove(int val)
 {
     struct node *rmv = search(val);
-    if (rmv->data != val)
-    {
-        return null;
-    }
     rmv = removeLevel(rmv);
-
     while (rmv != null)
     {
         if (rmv->up != null)
@@ -185,16 +157,10 @@ struct node *remove(int val)
             break;
         }
     }
-    return rmv;
 }
 int main()
 {
-    head = (struct node *)malloc(sizeof(struct node));
-    tail = (struct node *)malloc(sizeof(struct node));
-    head->data = INT_MIN;
-    tail->data = INT_MAX;
-    head->next = tail;
-    tail->previous = head;
+    setVal(head, tail);
     insert(6);
     insert(15);
     insert(4);
@@ -202,6 +168,8 @@ int main()
     insert(4);
     print();
     remove(4);
+    print();
+    remove(6);
     print();
 
     return 0;
