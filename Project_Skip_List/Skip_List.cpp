@@ -115,7 +115,8 @@ void print()
         struct node *temp = maxLvl;
         while (temp != NULL)
         {
-            cout << temp->data << ' ';
+            if(temp->data!=INT_MAX || temp->data!=INT_MIN)
+                cout << temp->data << ' ';
             if (temp->next != NULL)
                 cout << ": ";
             temp = temp->next;
@@ -156,16 +157,43 @@ void remove(int val)
 int main()
 {
     setVal(head, tail);
-    insert(6);
-    insert(15);
-    insert(4);
-    insert(15);
-    insert(4);
-    print();
-    remove(4);
-    print();
-    remove(6);
-    print();
-
-    return 0;
+    while(true)
+    {
+        cout << nl;
+        cout << 1 << ". Insert data: " << nl;
+        cout << 2 << ". Delete data: " << nl;
+        cout << 3 << ". Search data: " << nl;
+        cout << 4 << ". Exit: ";
+        cout << "#Enter Choice: ";
+        int n, c;
+        cin >> n;
+        if(n==1)
+        {
+            cout << "Enter value to INSERT: ";
+            cin >> c;
+            insert(c);
+            print();
+        }
+        else if(n==2)
+        {
+            cout << "Enter value to DELETE: ";
+            cin >> c;
+            remove(c);
+            print();
+        }
+        else if(n==3)
+        {
+            cout << "Enter value to SEARCH: ";
+            cin >> c;
+            struct node *temp = search(c);
+            if(!temp)
+                cout << c << " is not in the list" << nl;
+            else
+                cout << c << " is in the list" << nl;
+            print();
+        }
+        else
+            break;
+    }
+    
 }
