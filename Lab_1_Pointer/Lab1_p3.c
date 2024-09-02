@@ -11,7 +11,7 @@ void delete(int *p,int *n)
             //*n = *n - 1;
             (*n)--;
         }
-    if(*(p+*n)<0)
+    if(*(p+(*n-1)<0)
     {
         *(p + *n) = 0;
         (*n)--;
